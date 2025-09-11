@@ -1,27 +1,10 @@
 ﻿using System.Globalization;
-using FrameCalculator.CsvParser;
 
-namespace FrameCalculator.Storage;
+namespace FrameCalculator.CsvParser;
 
-public class MainStorage
+public static class ModelConvertor
 {
-    private readonly Dictionary<string, HashSet<BoardModel>> _boardsByLayer = new();
-
-    public MainStorage(IEnumerable<CsvData> parsedCsv)
-    {
-        foreach (var csvData in parsedCsv)
-        {
-            if (!TryConvert(csvData, out var board))
-                continue;
-
-            if (!_boardsByLayer.ContainsKey(csvData.Layer))
-                _boardsByLayer.Add(csvData.Layer, new HashSet<BoardModel>());
-
-            _boardsByLayer[csvData.Layer].Add(board);
-        }
-    }
-
-    private bool TryConvert(CsvData parsedCsv, out BoardModel board)
+    public static bool TryConvert(CsvData parsedCsv, out BoardModel board)
     {
         var hasSection = TryCalculateSection(parsedCsv, out var x, out var y);
         if (!hasSection)
@@ -31,11 +14,11 @@ public class MainStorage
         }
 
         var length = CalculateLenght(parsedCsv, x, y);
-        board = new BoardModel(parsedCsv.Name, x, y, length);
+        board = new BoardModel(parsedCsv.Name, x, y, length, parsedCsv.Layer);
         return true;
     }
 
-    private bool TryCalculateSection(CsvData parsedCsv, out int x, out int y)
+    private static bool TryCalculateSection(CsvData parsedCsv, out int x, out int y)
     {
         char[] separators = ['X', 'x', 'Х', 'х', '*'];
         foreach (var c in separators)
@@ -54,7 +37,7 @@ public class MainStorage
         return false;
     }
 
-    private int CalculateLenght(CsvData parsedCsv, int x, int y)
+    private static int CalculateLenght(CsvData parsedCsv, int x, int y)
     {
         const double inchesToMillimetersVolumeModifier = 16387.064;
         double volume = double.Parse(parsedCsv.Volume, CultureInfo.InvariantCulture);
