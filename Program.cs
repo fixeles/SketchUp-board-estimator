@@ -1,0 +1,4 @@
+﻿using FrameCalculator;
+
+ProgramRoot.Start();
+

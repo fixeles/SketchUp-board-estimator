@@ -1,0 +1,17 @@
+C:\Vladislav\Projects\Frame calculator\bin\Debug\net8.0\Frame calculator.exe
+C:\Vladislav\Projects\Frame calculator\bin\Debug\net8.0\Frame calculator.deps.json
+C:\Vladislav\Projects\Frame calculator\bin\Debug\net8.0\Frame calculator.runtimeconfig.json
+C:\Vladislav\Projects\Frame calculator\bin\Debug\net8.0\Frame calculator.dll
+C:\Vladislav\Projects\Frame calculator\bin\Debug\net8.0\Frame calculator.pdb
+C:\Vladislav\Projects\Frame calculator\obj\Debug\net8.0\Frame calculator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Vladislav\Projects\Frame calculator\obj\Debug\net8.0\Frame calculator.AssemblyInfoInputs.cache
+C:\Vladislav\Projects\Frame calculator\obj\Debug\net8.0\Frame calculator.AssemblyInfo.cs
+C:\Vladislav\Projects\Frame calculator\obj\Debug\net8.0\Frame calculator.csproj.CoreCompileInputs.cache
+C:\Vladislav\Projects\Frame calculator\obj\Debug\net8.0\Frame calculator.dll
+C:\Vladislav\Projects\Frame calculator\obj\Debug\net8.0\refint\Frame calculator.dll
+C:\Vladislav\Projects\Frame calculator\obj\Debug\net8.0\Frame calculator.pdb
+C:\Vladislav\Projects\Frame calculator\obj\Debug\net8.0\Frame calculator.genruntimeconfig.cache
+C:\Vladislav\Projects\Frame calculator\obj\Debug\net8.0\ref\Frame calculator.dll
+C:\Vladislav\Projects\Frame calculator\bin\Debug\net8.0\CsvHelper.dll
+C:\Vladislav\Projects\Frame calculator\obj\Debug\net8.0\Frame calculator.csproj.AssemblyReference.cache
+C:\Vladislav\Projects\Frame calculator\obj\Debug\net8.0\Frame ca.ECF0D2C6.Up2Date
