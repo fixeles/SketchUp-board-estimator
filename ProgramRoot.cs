@@ -17,10 +17,12 @@ public static class ProgramRoot
     private static void ConfigureReport(UnsortedStorage storage)
     {
         var storageByName = new StorageByName(storage);
+        var storageByLayer = new StorageByLayer(storage);
         IReporter[] reporters =
         [
             //add reporters here
             new BoardsCountReport(storageByName),
+            new BoardsCountByLayerReport(storageByLayer),
         ];
         var report = new RootReporter(reporters);
         report.Report();

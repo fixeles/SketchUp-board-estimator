@@ -1,8 +1,10 @@
-﻿namespace FrameCalculator.Storage;
+﻿using FrameCalculator.CsvParser;
+
+namespace FrameCalculator.Storage;
 
 public class StorageByName : Dictionary<string, CountByLength>
 {
-    public StorageByName(UnsortedStorage unsortedStorage)
+    public StorageByName(IEnumerable<BoardModel> unsortedStorage)
     {
         foreach (var board in unsortedStorage)
         {

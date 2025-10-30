@@ -12,9 +12,21 @@ public class BoardsCountReport : IReporter
         _storage = storage;
     }
 
+
+    public void Report(StringBuilder stringBuilder, string layer)
+    {
+        stringBuilder.AppendLine($"Boards count in layer \"{layer}\":");
+        Build(stringBuilder);
+    }
+
     public void Report(StringBuilder stringBuilder)
     {
-        stringBuilder.AppendLine("Boards count:");
+        stringBuilder.AppendLine("Total boards count:");
+        Build(stringBuilder);
+    }
+
+    private void Build(StringBuilder stringBuilder)
+    {
         stringBuilder.AppendLine();
 
         foreach (var (name, countByLength) in _storage)
