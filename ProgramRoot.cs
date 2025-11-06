@@ -24,7 +24,9 @@ public static class ProgramRoot
         [
             //add reporters here
             new BoardsCountReport(storageByName),
-            // new BoardsCountByLayerReport(storageByLayer),
+            new BoardsCountByLayerReport(storageByLayer),
+            new BoardsEstimateReport(solidBoards),
+            new NaiveBoardEstimateReport(storageByName)
         ];
         var report = new RootReporter(reporters);
         report.Report();

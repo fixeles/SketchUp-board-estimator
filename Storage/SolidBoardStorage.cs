@@ -5,7 +5,6 @@
 /// </summary>
 public class SolidBoardStorage : Dictionary<string, int>
 {
-    private const int SolidBoardLength = 6000;
 
     public SolidBoardStorage(StorageByName storageByName)
     {
@@ -34,7 +33,7 @@ public class SolidBoardStorage : Dictionary<string, int>
         while (allPieces.Count > 0)
         {
             boardsCount++;
-            int remainingLength = SolidBoardLength;
+            int remainingLength = Constants.SolidBoardLength;
 
             // Жадный алгоритм: берем самые большие отрезки, которые помещаются
             for (int i = 0; i < allPieces.Count; i++)
@@ -57,24 +56,24 @@ public class SolidBoardStorage : Dictionary<string, int>
     private IOrderedEnumerable<KeyValuePair<int, int>> HandleBoardOversize(CountByLength storage)
     {
         var orderedStorage = storage.OrderByDescending(b => b.Key);
-        if (orderedStorage.First().Key < SolidBoardLength)
+        if (orderedStorage.First().Key < Constants.SolidBoardLength)
             return orderedStorage;
 
         var oversizeCuts = new Dictionary<int, int>();
         var toRemove = new List<int>();
         foreach (var (length, count) in orderedStorage)
         {
-            if (length <= SolidBoardLength)
+            if (length <= Constants.SolidBoardLength)
                 break;
 
-            var solidBoards = length / SolidBoardLength;
+            var solidBoards = length / Constants.SolidBoardLength;
             solidBoards *= count;
 
-            if (!oversizeCuts.TryAdd(SolidBoardLength, solidBoards))
-                oversizeCuts[SolidBoardLength] += solidBoards;
+            if (!oversizeCuts.TryAdd(Constants.SolidBoardLength, solidBoards))
+                oversizeCuts[Constants.SolidBoardLength] += solidBoards;
 
 
-            var lengthLeft = length % SolidBoardLength;
+            var lengthLeft = length % Constants.SolidBoardLength;
 
             if (!oversizeCuts.TryAdd(lengthLeft, count))
                 oversizeCuts[lengthLeft] += count;

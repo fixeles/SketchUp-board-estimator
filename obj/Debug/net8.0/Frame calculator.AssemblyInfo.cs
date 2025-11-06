@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Frame calculator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0d6e234b284b1bfe4fe37893f3937fbabb9cf55e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+47804072575960819f1a5869613067d20062e6ac")]
 [assembly: System.Reflection.AssemblyProductAttribute("Frame calculator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Frame calculator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
