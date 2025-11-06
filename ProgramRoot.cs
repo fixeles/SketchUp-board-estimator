@@ -18,11 +18,13 @@ public static class ProgramRoot
     {
         var storageByName = new StorageByName(storage);
         var storageByLayer = new StorageByLayer(storage);
+        var solidBoards = new SolidBoardStorage(storageByName);
+        
         IReporter[] reporters =
         [
             //add reporters here
             new BoardsCountReport(storageByName),
-            new BoardsCountByLayerReport(storageByLayer),
+            // new BoardsCountByLayerReport(storageByLayer),
         ];
         var report = new RootReporter(reporters);
         report.Report();
