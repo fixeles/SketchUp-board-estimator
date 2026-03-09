@@ -5,7 +5,6 @@
 /// </summary>
 public class SolidBoardStorage : Dictionary<string, int>
 {
-
     public SolidBoardStorage(StorageByName storageByName)
     {
         foreach (var (name, storage) in storageByName)
@@ -16,84 +15,77 @@ public class SolidBoardStorage : Dictionary<string, int>
 
     private int CalculateSolidBoardsCount(CountByLength storage)
     {
-        if (storage.Count == 0) return 0;
+        if (storage.Count == 0) 
+            return 0;
 
-        var processedStorage = HandleBoardOversize(storage);
+        int readyBoards = 0;
+        var piecesForCutting = new Dictionary<int, int>();
 
-        // Создаем список отрезков, отсортированный по убыванию
-        var allPieces = processedStorage
+        foreach (var (length, count) in storage)
+        {
+            switch (length)
+            {
+                case Constants.SolidBoardLength:
+                    readyBoards += count;
+                    break;
+                
+                case < Constants.SolidBoardLength:
+                    AddToDictionary(piecesForCutting, length, count);
+                    break;
+                
+                // length > Constants.SolidBoardLength
+                default:
+                {
+                    // Длинномеры - разбиваем на части
+                    int fullPieces = length / Constants.SolidBoardLength;
+                    int remainder = length % Constants.SolidBoardLength;
+
+                    readyBoards += fullPieces * count;
+
+                    if (remainder > 0)
+                        AddToDictionary(piecesForCutting, remainder, count);
+                    break;
+                }
+            }
+        }
+
+        if (piecesForCutting.Count == 0)
+            return readyBoards;
+
+        //Оптимизируем раскрой оставшихся отрезков
+        var allPieces = piecesForCutting
             .SelectMany(pair => Enumerable.Repeat(pair.Key, pair.Value))
+            .OrderByDescending(x => x)
             .ToList();
-        
 
-        var shortestLenght = allPieces[^1];
-
-        int boardsCount = 0;
+        var shortestLength = allPieces.Min();
+        int boardsForCutting = 0;
 
         while (allPieces.Count > 0)
         {
-            boardsCount++;
+            boardsForCutting++;
             int remainingLength = Constants.SolidBoardLength;
 
-            // Жадный алгоритм: берем самые большие отрезки, которые помещаются
             for (int i = 0; i < allPieces.Count; i++)
             {
-                if (remainingLength < shortestLenght)
+                if (remainingLength < shortestLength)
                     break;
 
                 if (allPieces[i] > remainingLength)
                     continue;
-                
+
                 remainingLength -= allPieces[i];
                 allPieces.RemoveAt(i);
-                i--; // Уменьшаем счетчик т.к. удалили элемент
+                i--;
             }
         }
 
-        return boardsCount;
+        return readyBoards + boardsForCutting;
     }
 
-    private IOrderedEnumerable<KeyValuePair<int, int>> HandleBoardOversize(CountByLength storage)
+    private void AddToDictionary(Dictionary<int, int> dict, int key, int value)
     {
-        var orderedStorage = storage.OrderByDescending(b => b.Key);
-        if (orderedStorage.First().Key < Constants.SolidBoardLength)
-            return orderedStorage;
-
-        var oversizeCuts = new Dictionary<int, int>();
-        var toRemove = new List<int>();
-        foreach (var (length, count) in orderedStorage)
-        {
-            if (length <= Constants.SolidBoardLength)
-                break;
-
-            var solidBoards = length / Constants.SolidBoardLength;
-            solidBoards *= count;
-
-            if (!oversizeCuts.TryAdd(Constants.SolidBoardLength, solidBoards))
-                oversizeCuts[Constants.SolidBoardLength] += solidBoards;
-
-
-            var lengthLeft = length % Constants.SolidBoardLength;
-
-            if (!oversizeCuts.TryAdd(lengthLeft, count))
-                oversizeCuts[lengthLeft] += count;
-
-            toRemove.Add(length);
-        }
-
-        if (oversizeCuts.Count == 0)
-            return orderedStorage;
-
-        var updatedStorage = orderedStorage.ToDictionary();
-        foreach (var lenght in toRemove)
-        {
-            updatedStorage.Remove(lenght);
-        }
-
-        return updatedStorage.Concat(oversizeCuts)
-            .GroupBy(pair => pair.Key)
-            .ToDictionary(group => group.Key,
-                group => group.Sum(pair => pair.Value))
-            .OrderByDescending(b => b.Key);
+        if (!dict.TryAdd(key, value))
+            dict[key] += value;
     }
 }

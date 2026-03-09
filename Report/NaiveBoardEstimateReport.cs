@@ -14,6 +14,7 @@ public class NaiveBoardEstimateReport : IReporter
 
     public void Report(StringBuilder stringBuilder)
     {
+        stringBuilder.AppendLine("Примитивный подсчет (длины всех досок / 6м) + 6м)");
         stringBuilder.AppendLine("Naive boards estimate:");
         Build(stringBuilder);
     }
