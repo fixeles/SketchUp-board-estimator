@@ -19,7 +19,8 @@ public class BoardModel
         X = x;
         Y = y;
         Layer = layer;
-        Length = RoundToNearestMultiple(length, 5);
+        // Length = RoundToNearestMultiple(length, 5);
+        Length = length;
     }
 
     private int RoundToNearestMultiple(int number, int target)

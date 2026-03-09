@@ -13,7 +13,7 @@ public static class ModelConvertor
             return false;
         }
 
-        var length = CalculateLenght(parsedCsv, x, y);
+        var length = CalculateLength(parsedCsv, x, y);
         board = new BoardModel(parsedCsv.Name, x, y, length, parsedCsv.Layer);
         return true;
     }
@@ -23,7 +23,7 @@ public static class ModelConvertor
         char[] separators = ['X', 'x', 'Х', 'х', '*'];
         foreach (var c in separators)
         {
-            var split = parsedCsv.Name.Split(c);
+            var split = parsedCsv.Name.Trim().Split(c);
             if (split.Length != 2)
                 continue;
 
@@ -37,12 +37,12 @@ public static class ModelConvertor
         return false;
     }
 
-    private static int CalculateLenght(CsvData parsedCsv, int x, int y)
+    private static int CalculateLength(CsvData parsedCsv, int x, int y)
     {
         const double inchesToMillimetersVolumeModifier = 16387.064;
         double volume = double.Parse(parsedCsv.Volume, CultureInfo.InvariantCulture);
         volume *= inchesToMillimetersVolumeModifier;
-        var length = (int)volume / x / y;
+        var length = (int)(volume / x / y);
         return length;
     }
 }

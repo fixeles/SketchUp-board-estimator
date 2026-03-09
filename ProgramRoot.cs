@@ -12,6 +12,7 @@ public static class ProgramRoot
         var storage = new UnsortedStorage(parsedCsv);
 
         ConfigureReport(storage);
+        Console.ReadLine();
     }
 
     private static void ConfigureReport(UnsortedStorage storage)
